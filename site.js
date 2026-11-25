@@ -2,14 +2,16 @@
 (function(){
   function setLang(l){
     document.querySelectorAll('[data-uz]').forEach(function(el){ el.textContent = el.getAttribute('data-'+l); });
-    document.documentElement.lang = l === 'uz' ? 'uz' : 'en';
+    document.documentElement.lang = l;
     document.getElementById('lang-uz').setAttribute('aria-pressed', l==='uz');
     document.getElementById('lang-en').setAttribute('aria-pressed', l==='en');
+    document.getElementById('lang-ru').setAttribute('aria-pressed', l==='ru');
     try{ localStorage.setItem('lang', l); }catch(e){}
   }
   document.getElementById('lang-uz').onclick = function(){ setLang('uz'); };
   document.getElementById('lang-en').onclick = function(){ setLang('en'); };
-  try{ var s = localStorage.getItem('lang'); if (s === 'en') setLang('en'); }catch(e){}
+  document.getElementById('lang-ru').onclick = function(){ setLang('ru'); };
+  try{ var s = localStorage.getItem('lang'); if (s === 'en' || s === 'ru') setLang(s); }catch(e){}
   document.querySelectorAll('.copy').forEach(function(b){
     b.addEventListener('click', function(){
       var el = document.getElementById(b.getAttribute('data-copy'));
@@ -26,9 +28,9 @@
   var g = document.getElementById('greet'), gi = 0, words = ['Salom!','Hello!','Привет!'];
   if (!reduce) setInterval(function(){ gi=(gi+1)%words.length; g.textContent=words[gi]; g.classList.remove('swap'); void g.offsetWidth; g.classList.add('swap'); }, 2200);
   var t = document.getElementById('typed');
-  var roles = { uz:['Ingliz tili o\'qituvchisi','IELTS 7.0','Compass School Head Teacher','Material muallifi'], en:['English teacher','IELTS 7.0','Head Teacher at Compass School','Materials author'] };
+  var roles = { uz:['Ingliz tili o\'qituvchisi','IELTS 7.0','Compass School Head Teacher','Material muallifi'], en:['English teacher','IELTS 7.0','Head Teacher at Compass School','Materials author'], ru:['Преподаватель английского','IELTS 7.0','Head Teacher в Compass School','Автор материалов'] };
   var ri=0, ci=0, del=false;
-  function lang(){ return document.documentElement.lang==='en'?'en':'uz'; }
+  function lang(){ var l=document.documentElement.lang; return roles[l]?l:'uz'; }
   function tick(){
     var list=roles[lang()], w=list[ri%list.length];
     if (reduce){ t.textContent=w; return; }
