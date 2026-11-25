@@ -292,3 +292,17 @@ footer{padding-block:28px;color:var(--muted);font-size:13px;text-align:center}
 .lt-level b{font:800 clamp(56px,10vw,84px)/1 var(--display);color:var(--gold)}
 .lt-level span{font:800 clamp(22px,3.5vw,30px) var(--display)}
 .lt-score{font-weight:700;margin:10px 0 0}
+
+.lt-ad{margin-top:22px;border-radius:18px;padding:22px;background:#5b2230;color:#f6ebe6}
+.lt-tag{display:inline-block;background:#e0bf80;color:#3a121c;font:800 12px var(--body);letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 10px}
+.lt-ad h3{font-size:clamp(22px,3vw,28px);margin-top:12px;color:#f6ebe6}
+.lt-ad-p{color:#e8cfc9;margin:4px 0 0}
+.lt-ad-start{margin:12px 0 0;font-size:17px}.lt-ad-start b{color:#e0bf80}
+.lt-ad-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.lt-ad-facts div{background:#ffffff14;border-radius:12px;padding:12px}
+.lt-ad-facts b{display:block;font:800 24px var(--display);color:#e0bf80}
+.lt-ad-facts span{font-size:13px;color:#e8cfc9}
+.lt-ad-note{font-size:14px;color:#e8cfc9;margin:12px 0 0}
+.lt-ad .btn{border-color:#e0bf80;color:#f6ebe6;box-shadow:4px 4px 0 #00000055}
+.lt-ad .btn.primary{background:#e0bf80;color:#3a121c}
+.lt-ad .btn.lt-again{background:none;cursor:pointer;font:700 15px var(--body)}

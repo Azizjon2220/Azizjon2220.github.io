@@ -14,7 +14,7 @@
 <meta name="description" content="Bepul ingliz tili daraja testi: 20 savol, 5 daqiqa. Darajangizni bilib oling: Beginner, Elementary, Pre-Intermediate yoki Intermediate.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 
 </head>
 <body>
@@ -44,54 +44,9 @@
   <p data-uz="20 ta savol, taxminan 5 daqiqa. Har savolda bitta to'g'ri javobni tanlang. Bilmasangiz, taxmin qilmang, o'tkazib yuboring." data-en="20 questions, about 5 minutes. Pick one correct answer each time. If you don't know, skip instead of guessing." data-ru="20 вопросов, около 5 минут. Выберите один правильный ответ. Если не знаете — пропустите, не угадывайте.">20 ta savol, taxminan 5 daqiqa. Har savolda bitta to'g'ri javobni tanlang. Bilmasangiz, taxmin qilmang, o'tkazib yuboring.</p>
 </div></header>
 <section class="t-ivory" style="padding-top:28px"><div class="wrap" style="max-width:760px">
-  <div class="lt-progress"><div class="bar"><i id="lt-fill"></i></div><span id="lt-step">1 / 20</span></div>
-  <div class="lt-card" id="lt-card">
-    <p class="lt-q" id="lt-q"></p>
-    <div class="lt-opts" id="lt-opts"></div>
-    <button class="lt-skip" id="lt-skip" type="button" data-uz="Bilmayman, o'tkazib yuborish →" data-en="I don't know, skip →" data-ru="Не знаю, пропустить →">Bilmayman, o'tkazib yuborish →</button>
-  </div>
-  <div class="lt-result" id="lt-result" hidden>
-    <div class="eyebrow" data-uz="Natijangiz" data-en="Your result" data-ru="Ваш результат">Natijangiz</div>
-    <div class="lt-level"><b id="lt-cefr"></b><span id="lt-name"></span></div>
-    <p class="lt-score" id="lt-score"></p>
-    <p class="lead" id="lt-advice" style="margin-top:6px"></p>
-    <div class="ctas"><a class="btn primary" id="lt-cta" href="course.html#apply"></a><button class="btn" type="button" id="lt-again" data-uz="Qayta topshirish" data-en="Try again" data-ru="Пройти заново">Qayta topshirish</button></div>
-  </div>
+  <div id="lt-root"></div>
 </div></section>
-<script>
-(function(){
-  var Q=[{"q": "I ___ a student.", "o": ["am", "is", "are", "be"], "a": 0}, {"q": "___ is your name?", "o": ["Who", "What", "Where", "How"], "a": 1}, {"q": "She ___ two brothers.", "o": ["have", "has", "is", "having"], "a": 1}, {"q": "There ___ a book on the table.", "o": ["are", "be", "is", "am"], "a": 2}, {"q": "I ___ in Tashkent.", "o": ["lives", "living", "live", "am live"], "a": 2}, {"q": "Yesterday I ___ to the cinema.", "o": ["go", "went", "gone", "goes"], "a": 1}, {"q": "He can ___ very fast.", "o": ["runs", "running", "to run", "run"], "a": 3}, {"q": "Is there ___ milk in the fridge?", "o": ["any", "a", "many", "an"], "a": 0}, {"q": "Tashkent is ___ than Bukhara.", "o": ["big", "biggest", "bigger", "more big"], "a": 2}, {"q": "Have you ever ___ to Seoul?", "o": ["go", "went", "been", "going"], "a": 2}, {"q": "I ___ TV when the phone rang.", "o": ["watched", "was watching", "am watching", "watch"], "a": 1}, {"q": "If it rains tomorrow, we ___ at home.", "o": ["stay", "would stay", "will stay", "stayed"], "a": 2}, {"q": "I've lived here ___ 2020.", "o": ["for", "since", "from", "ago"], "a": 1}, {"q": "The bridge ___ in 1990.", "o": ["built", "was built", "is building", "has built"], "a": 1}, {"q": "I'm not used to ___ up early.", "o": ["get", "got", "getting", "gets"], "a": 2}, {"q": "If I ___ more time, I would learn Japanese.", "o": ["have", "had", "will have", "would have"], "a": 1}, {"q": "She asked me where ___.", "o": ["do I live", "I lived", "did I live", "I live?"], "a": 1}, {"q": "You ___ have told me earlier, I could have helped!", "o": ["must", "should", "can", "would"], "a": 1}, {"q": "He must ___ the keys; he can't find them anywhere.", "o": ["lose", "have lost", "lost", "be losing"], "a": 1}, {"q": "The man ___ car was stolen called the police.", "o": ["who", "which", "whose", "that"], "a": 2}];
-  var i=0,score=0,answers=[];
-  var q=document.getElementById("lt-q"),opts=document.getElementById("lt-opts"),step=document.getElementById("lt-step"),fill=document.getElementById("lt-fill");
-  function L(){var l=document.documentElement.lang;return l==="en"?1:l==="ru"?2:0;}
-  var LV=[
-    ["A1","Beginner",["Asosiy so'zlar va oddiy gaplardan boshlaymiz. Onlayn kurs aynan Beginner'dan boshlanadi — siz uchun ideal.","We start from basic words and simple sentences. The online course starts right at Beginner, a perfect fit for you.","Начнём с базовых слов и простых предложений. Онлайн-курс начинается как раз с Beginner — идеально для вас."]],
-    ["A2","Elementary",["Asoslarni bilasiz. Kursda Elementary bosqichidan tezroq o'tib, Pre-Intermediate'ga chiqasiz.","You know the basics. In the course you'll move through Elementary quickly and reach Pre-Intermediate.","Основы вы знаете. На курсе быстро пройдёте Elementary и выйдете на Pre-Intermediate."]],
-    ["B1","Pre-Intermediate",["Yaxshi poydevor bor. Kurs bilan Intermediate'ga chiqib, keyin Multilevel/IELTS'ga tayyor bo'lasiz.","Solid foundation. With the course you'll reach Intermediate and get ready for Multilevel/IELTS.","Хорошая база. С курсом выйдете на Intermediate и подготовитесь к Multilevel/IELTS."]],
-    ["B1+","Intermediate",["Zo'r! Kursning oxirgi bosqichi va undan keyin Multilevel/IELTS kursi siz uchun.","Great! The last stage of the course, then the Multilevel/IELTS course, are for you.","Отлично! Вам подходит последний этап курса, а затем курс Multilevel/IELTS."]],
-    ["B2+","Upper-Intermediate+",["Ajoyib natija! Sizga to'g'ridan-to'g'ri Multilevel/IELTS tayyorgarligi mos keladi. Ariza qoldiring, bog'lanamiz.","Excellent! Multilevel/IELTS preparation suits you directly. Leave an application and we'll be in touch.","Превосходно! Вам сразу подходит подготовка к Multilevel/IELTS. Оставьте заявку — мы свяжемся."]]];
-  function level(s){return s<=5?0:s<=10?1:s<=15?2:s<=18?3:4;}
-  function show(){
-    var it=Q[i];step.textContent=(i+1)+" / "+Q.length;fill.style.width=(i/Q.length*100)+"%";
-    q.textContent=(i+1)+". "+it.q;opts.innerHTML="";
-    it.o.forEach(function(o,k){var b=document.createElement("button");b.type="button";b.className="lt-opt";b.textContent=o;b.onclick=function(){next(k);};opts.appendChild(b);});
-  }
-  function next(k){ if(k===Q[i].a)score++; answers.push(k); i++; if(i<Q.length)show(); else done(); }
-  function done(){
-    fill.style.width="100%";document.getElementById("lt-card").hidden=true;var r=document.getElementById("lt-result");r.hidden=false;
-    var lv=LV[level(score)];
-    document.getElementById("lt-cefr").textContent=lv[0];document.getElementById("lt-name").textContent=lv[1];
-    document.getElementById("lt-score").textContent=["To'g'ri javoblar: ","Correct answers: ","Правильных ответов: "][L()]+score+" / "+Q.length;
-    document.getElementById("lt-advice").textContent=lv[2][L()];
-    document.getElementById("lt-cta").textContent=["Onlayn kursga yozilish →","Join the online course →","Записаться на онлайн-курс →"][L()];
-    try{localStorage.setItem("lt-level",lv[1]);}catch(e){}
-    r.scrollIntoView({behavior:"smooth",block:"start"});
-  }
-  document.getElementById("lt-skip").onclick=function(){next(-1);};
-  document.getElementById("lt-again").onclick=function(){i=0;score=0;answers=[];document.getElementById("lt-result").hidden=true;document.getElementById("lt-card").hidden=false;show();};
-  show();
-})();
-</script>
+<script src="lt.js?v=1"></script>
 <footer>© 2026 Azizjon Baxtiyorov (Azizjon Bakhtiyorov · Азизжон Бахтиёров) · <a href="contact.html">Aloqa</a></footer>
 <script src="site.js?v=9"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "0cc70d7316fb46289d7ab7a6349b8a6a"}'></script>
