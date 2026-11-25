@@ -33,7 +33,7 @@ function show(){var it=Q[i];step.textContent=(i+1)+" / "+Q.length;fill.style.wid
  it.o.forEach(function(o,k){var b=document.createElement("button");b.type="button";b.className="lt-opt";b.textContent=o;b.onclick=function(){next(k);};opts.appendChild(b);});}
 function next(k){if(k===Q[i].a)score++;i++;if(i<Q.length)show();else done();}
 function lvl(s){return s<=5?0:s<=10?1:s<=15?2:s<=18?3:4;}
-function done(){
+function done(noScroll){
  fill.style.width="100%";card.hidden=true;res.hidden=false;var n=lvl(score),lv=LV[n];
  var start=n<4?t("adStart").replace("%s",LV[n][1]):t("adStartTop");
  res.innerHTML='<div class="eyebrow">'+t("res")+'</div><div class="lt-level"><b>'+lv[0]+'</b><span>'+lv[1]+'</span></div>'+
@@ -42,13 +42,14 @@ function done(){
   '<p class="lt-ad-start">'+start+'</p>'+
   '<div class="lt-ad-facts"><div><b>449 000</b><span>'+t("price")+'</span></div><div><b class="lt-seats">—/30</b><span>'+t("seats")+'</span></div></div>'+
   '<p class="lt-ad-note">'+t("nopay")+'</p>'+
-  '<div class="ctas"><a class="btn primary" href="course.html#apply">'+t("cta")+'</a><a class="btn" href="course.html#plan">'+t("plan")+'</a><button class="btn lt-again" type="button">'+t("again")+'</button></div></div>';
+  '<div class="ctas"><a class="btn primary" href="course.html#apply">'+t("cta")+'</a><a class="btn" href="course.html#plan">'+t("plan")+'</a></div></div>';
  fetch("https://azizjon-apply.azizjonielts.workers.dev/count").then(function(r){return r.json();}).then(function(d){var e=res.querySelector(".lt-seats");if(e)e.textContent=d.count+"/30";}).catch(function(){});
- try{localStorage.setItem("lt-level",lv[1]);}catch(e){}
- res.querySelector(".lt-again").onclick=function(){i=0;score=0;res.hidden=true;card.hidden=false;show();};
- res.scrollIntoView({behavior:"smooth",block:"start"});
+ try{localStorage.setItem("lt-done",String(score));}catch(e){}
+ if(!noScroll)res.scrollIntoView({behavior:"smooth",block:"start"});
+ step.textContent=Q.length+" / "+Q.length;
 }
 skip.onclick=function(){next(-1);};
-["lang-uz","lang-en","lang-ru"].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener("click",function(){if(!card.hidden)show();});});
-show();
+var saved=null;try{saved=localStorage.getItem("lt-done");}catch(e){}
+["lang-uz","lang-en","lang-ru"].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener("click",function(){if(!card.hidden)show();else done(true);});});
+if(saved!==null&&!isNaN(parseInt(saved,10))){score=parseInt(saved,10);done(true);}else show();
 })();
